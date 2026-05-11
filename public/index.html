@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AOS · dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans h-screen overflow-hidden">
+
+  <div class="h-full flex">
+
+    <aside class="w-56 bg-slate-900 border-r border-slate-800 flex flex-col flex-shrink-0">
+      <div class="px-4 py-4 border-b border-slate-800">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-xs font-bold">A</div>
+          <div class="min-w-0">
+            <div class="text-sm font-semibold leading-tight">AOS dashboard</div>
+            <div class="text-[10px] text-slate-500 font-mono leading-tight truncate" id="aos-root-display">…</div>
+          </div>
+        </div>
+      </div>
+
+      <nav class="flex-1 py-2">
+        <button data-view="overview" class="nav-btn active">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+          Overview
+        </button>
+        <button data-view="skills" class="nav-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor"><path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+          Skills
+          <span class="ml-auto text-xs text-slate-500" id="nav-skills-count"></span>
+        </button>
+        <button data-view="context" class="nav-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/></svg>
+          Context
+          <span class="ml-auto text-xs text-slate-500" id="nav-context-count"></span>
+        </button>
+        <button data-view="audits" class="nav-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"/></svg>
+          Audits
+          <span class="ml-auto text-xs text-slate-500" id="nav-audits-count"></span>
+        </button>
+        <button data-view="tree" class="nav-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor"><path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/></svg>
+          Files
+        </button>
+        <button data-view="usage" class="nav-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
+          Usage
+        </button>
+      </nav>
+
+      <div class="px-4 py-3 border-t border-slate-800 text-xs space-y-1">
+        <div class="flex justify-between"><span class="text-slate-500">Onboarded</span><span id="onboarded-status" class="font-mono">—</span></div>
+        <div class="flex justify-between"><span class="text-slate-500">Skills root</span><span id="skills-root-display" class="font-mono text-slate-400 truncate">—</span></div>
+      </div>
+    </aside>
+
+    <main class="flex-1 overflow-auto">
+      <div id="view-host" class="h-full">
+        <div class="p-12 text-center text-slate-500">Loading…</div>
+      </div>
+    </main>
+
+  </div>
+
+  <div id="toast-host" class="fixed bottom-4 right-4 space-y-2 z-50"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
